@@ -1,0 +1,8 @@
+<nb-card>
+  <nb-card-header>{{ modalAttrs.title }}</nb-card-header>
+  <nb-card-body>{{ modalAttrs.message }}</nb-card-body>
+  <nb-card-footer>
+    <button status="danger" nbButton (click)="confirm()">Confirm</button>
+    <button nbButton (click)="reject()">Cancel</button>
+  </nb-card-footer>
+</nb-card>

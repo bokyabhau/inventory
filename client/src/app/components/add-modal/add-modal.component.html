@@ -1,0 +1,26 @@
+<nb-card>
+  <nb-card-header
+    >Add {{ type === "part" ? "Part" : "Rejection" }}</nb-card-header
+  >
+  <nb-card-body>
+    <nb-form-field>
+      <input
+        type="text"
+        nbInput
+        fieldSize="giant"
+        fullWidth
+        placeholder="Enter Part Name"
+        [(ngModel)]="name"
+      />
+      <button nbSuffix nbButton ghost (click)="name = ''">
+        <nb-icon icon="close"> </nb-icon>
+      </button>
+    </nb-form-field>
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton status="primary" size="giant" (click)="confirm()">
+      Add
+    </button>
+    <button nbButton size="giant" (click)="cancel()">Cancel</button>
+  </nb-card-footer>
+</nb-card>

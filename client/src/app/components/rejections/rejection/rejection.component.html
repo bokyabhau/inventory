@@ -1,0 +1,40 @@
+<div class="text">
+  <div *ngIf="!editing; else showEdit">{{ rejection.name }}</div>
+  <ng-template #showEdit>
+    <form [formGroup]="rejectionForm">
+      <input
+        nbInput
+        fullWidth
+        fieldSize="large"
+        formControlName="name"
+        [attr.disabled]="loading"
+      />
+    </form>
+  </ng-template>
+</div>
+<div class="action">
+  <nb-actions size="medium">
+    <nb-action
+      icon="edit"
+      (click)="editing = true"
+      *ngIf="!editing"
+    ></nb-action>
+
+    <nb-action
+      [nbSpinner]="loading"
+      nbSpinnerStatus="primary"
+      nbSpinnerSize="large"
+      icon="checkmark"
+      (click)="update()"
+      *ngIf="editing"
+    ></nb-action>
+
+    <nb-action
+      icon="close"
+      (click)="editing = false"
+      *ngIf="editing"
+    ></nb-action>
+
+    <nb-action icon="trash" (click)="deleteRejection()" *ngIf="!editing"></nb-action>
+  </nb-actions>
+</div>

@@ -1,0 +1,110 @@
+<nb-card>
+  <nb-card-header>
+    <h2>Data Entry</h2>
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="dataEntryForm">
+      <div class="row">
+        <div class="col">
+          <div class="title">Date:</div>
+          <div class="content">{{ currentDate }}</div>
+          <button nbButton size="giant" ghost>
+            <nb-icon icon="edit"></nb-icon>
+          </button>
+        </div>
+        <div class="col">
+          <div class="title">Shift:</div>
+          <div class="content">{{ shift.title }}</div>
+          <button nbButton size="giant" ghost>
+            <nb-icon icon="edit"></nb-icon>
+          </button>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col">
+          <div class="title">Part Name:</div>
+          <div class="content">
+            <input
+              #autoInput
+              nbInput
+              fieldSize="giant"
+              fullWidth
+              formControlName="partName"
+              (input)="filterParts()"
+              [nbAutocomplete]="parts"
+            />
+            <nb-autocomplete
+              #parts
+              (selectedChange)="onPartSelected($event)"
+              [handleDisplayFn]="viewPart"
+            >
+              <nb-option
+                *ngFor="let part of filteredParts$ | async"
+                [value]="part"
+              >
+                {{ part.name }}
+              </nb-option>
+            </nb-autocomplete>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col">
+          <div class="title">Load Number:</div>
+          <div class="content">
+            <input nbInput fieldSize="giant" fullWidth type="number" />
+          </div>
+        </div>
+        <div class="col">
+          <div class="title">Number of Parts:</div>
+          <div class="content">
+            <input nbInput fieldSize="giant" fullWidth type="number" />
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col">
+          <div class="title">Type of Rejection:</div>
+          <div class="content">
+            <input
+              #autoInput
+              nbInput
+              fieldSize="giant"
+              fullWidth
+              formControlName="rejectionName"
+              (input)="filterRejections()"
+              [nbAutocomplete]="rejections"
+            />
+            <nb-autocomplete
+              #rejections
+              (selectedChange)="onRejectionSelected($event)"
+              [handleDisplayFn]="viewRejection"
+            >
+              <nb-option
+                *ngFor="let rejection of filteredRejections$ | async"
+                [value]="rejection"
+              >
+                {{ rejection.name }}
+              </nb-option>
+            </nb-autocomplete>
+          </div>
+        </div>
+        <div class="col">
+          <div class="title">Number of Rejections:</div>
+          <div class="content">
+            <input nbInput fieldSize="giant" fullWidth type="number" />
+          </div>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="row footer">
+      <button nbButton status="primary">Save</button>
+      <button nbButton>Clear</button>
+    </div>
+  </nb-card-footer>
+</nb-card>

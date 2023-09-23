@@ -1,0 +1,40 @@
+<div class="header">
+  <div class="search">
+    <form [formGroup]="queryForm">
+      <nb-form-field>
+        <input
+          type="text"
+          nbInput
+          fieldSize="giant"
+          fullWidth
+          placeholder="Search Parts"
+          formControlName="query"
+          (input)="handleChange()"
+        />
+        <button nbSuffix nbButton ghost (click)="clear()">
+          <nb-icon icon="close"> </nb-icon>
+        </button>
+      </nb-form-field>
+    </form>
+  </div>
+  <div>
+    <button nbButton status="primary" size="large" (click)="addRejection()">
+      <nb-icon icon="plus"></nb-icon>Add Part
+    </button>
+  </div>
+</div>
+
+<nb-card
+  [nbSpinner]="loading"
+  nbSpinnerStatus="primary"
+  nbSpinnerSize="large"
+  nbSpinnerMessage="Loading rejections.. Please wait"
+>
+  <nb-card-body>
+    <nb-list>
+      <nb-list-item class="row" *ngFor="let rejection of rejections$ | async">
+        <app-rejection [rejection]="rejection"></app-rejection>
+      </nb-list-item>
+    </nb-list>
+  </nb-card-body>
+</nb-card>

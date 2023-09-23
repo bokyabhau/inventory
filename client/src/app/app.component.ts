@@ -1,26 +1,20 @@
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { PartService } from './services/part.service';
+import { Part } from './models/part.model';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'client';
-  constructor(private http: HttpClient) {}
+  products$ = new Observable<Part[]>();
 
-  onClick() {
-    const sub = this.http.get('/api').subscribe((data) => {
-      console.log(data);
-      sub.unsubscribe();
-    });
-  }
+  constructor(private partService: PartService) {}
 
-  onGetSomething() {
-    const sub = this.http.get('/api/something').subscribe((data) => {
-      console.log(data);
-      sub.unsubscribe();
-    });
+  ngOnInit(): void {
+    this.products$ = this.partService.getAllParts();
   }
 }
