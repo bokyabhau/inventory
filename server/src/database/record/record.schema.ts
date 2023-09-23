@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { capitalize } from 'src/utils';
+import { capitalize, numberOfRejectionsValidator } from 'src/utils';
 import { Part } from '../part/part.schema';
 import { Rejection } from '../rejection/rejection.schema';
 
@@ -20,12 +20,7 @@ export class Record {
 
   @Prop({
     min: 0,
-    validate: {
-      validator: function (v) {
-        return v >= this.numberOfParts;
-      },
-      message: 'Number of Rejections must be less than Number of Parts',
-    },
+    validate: numberOfRejectionsValidator,
   })
   numberOfRejections: number;
 }
