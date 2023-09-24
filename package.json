@@ -13,7 +13,6 @@
     "server": "cd server && yarn build",
     "build": "yarn client && yarn server",
     "dev": "concurrently -k \"yarn client:dev\" \"yarn server:dev\"",
-    "prestart": "yarn build",
     "start": "yarn server:run"
   },
   "dependencies": {

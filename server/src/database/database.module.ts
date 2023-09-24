@@ -11,13 +11,10 @@ import { RecordService } from './record/record.service';
 
 @Module({
   imports: [
-    MongooseModule.forFeature(
-      [
-        { name: Part.name, schema: PartSchema },
-        { name: Rejection.name, schema: RejectionSchema },
-      ],
-      process.env.DB_URL,
-    ),
+    MongooseModule.forFeature([
+      { name: Part.name, schema: PartSchema },
+      { name: Rejection.name, schema: RejectionSchema },
+    ]),
   ],
   controllers: [PartController, RejectionController, RecordController],
   providers: [PartService, RejectionService, RecordService],
