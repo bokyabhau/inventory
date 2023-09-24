@@ -8,8 +8,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
 
-const isProd = process.env.NODE_ENV === 'production';
-
 const rootPath = resolve(
   join(__dirname, '..', '..', 'client', 'dist', 'client'),
 );
@@ -19,7 +17,6 @@ const rootPath = resolve(
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRoot(process.env.DB_URL),
     ServeStaticModule.forRoot({ rootPath }),
-    // ProductModule,
     DatabaseModule,
   ],
   controllers: [AppController],
