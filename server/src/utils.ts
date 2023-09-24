@@ -1,8 +1,9 @@
-export const capitalize = (string: string) =>
-  string
+export const capitalize = function (string: string) {
+  return string
     .split(' ')
     .map((word) => `${word[0].toUpperCase()}${word.slice(1)}`)
     .join(' ');
+};
 
 export function numberOfRejectionsValidator() {
   return {
