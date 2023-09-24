@@ -1,10 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { capitalize } from 'src/utils';
 
 @Schema({ timestamps: true, toJSON: { getters: true } })
 export class Part {
-  @Prop({ required: true, lowercase: true, unique: true, get: capitalize })
+  @Prop({ required: true, lowercase: true, unique: true })
   name: string;
 
   @Prop({ required: false, lowercase: true })
