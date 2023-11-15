@@ -12,3 +12,8 @@ export type ModalAttrs = {
   title: string;
   message: string;
 };
+
+export type Shift = {
+  id: number;
+  title: string;
+};

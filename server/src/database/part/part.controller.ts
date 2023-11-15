@@ -5,24 +5,24 @@ import { Part, PartDocument } from './part.schema';
 
 @Controller('part')
 export class PartController {
-  @Get()
-  findAllProducts(): Promise<PartDocument[]> {
-    return this.partService.getParts();
+  @Post()
+  create(@Body() partDto: PartDto): Promise<PartDocument> {
+    return this.partService.create(partDto);
   }
 
-  @Post()
-  addPart(@Body() partDto: PartDto): Promise<PartDocument> {
-    return this.partService.addPart(partDto);
+  @Get()
+  read(): Promise<PartDocument[]> {
+    return this.partService.read();
   }
 
   @Put()
-  updatePart(@Body() partDto: PartDocument): Promise<PartDocument> {
-    return this.partService.editPart(partDto);
+  update(@Body() partDto: PartDocument): Promise<PartDocument> {
+    return this.partService.update(partDto);
   }
 
   @Delete()
-  deletePart(@Body() body: PartDocument): Promise<Part> {
-    return this.partService.deletePart(body);
+  delete(@Body() body: PartDocument): Promise<Part> {
+    return this.partService.delete(body);
   }
 
   constructor(private partService: PartService) {}

@@ -10,12 +10,21 @@ export class RejectionService {
     @InjectModel(Rejection.name) private rejectionModel: Model<Rejection>,
   ) {}
 
-  async getRejections(): Promise<RejectionDocument[]> {
+  async read(): Promise<RejectionDocument[]> {
     return this.rejectionModel.find().exec();
   }
 
-  async addRejection(rejectionDto: RejectionDto): Promise<RejectionDocument> {
+  async create(rejectionDto: RejectionDto): Promise<RejectionDocument> {
     const newRejection = new this.rejectionModel(rejectionDto);
+    const existingRejection = await this.rejectionModel.count({
+      name: rejectionDto.name,
+    });
+    if (existingRejection > 0) {
+      throw new HttpException(
+        `Rejection "${rejectionDto.name}" already exists`,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
     try {
       const createdRejection = await newRejection.save();
       return createdRejection;
@@ -24,9 +33,7 @@ export class RejectionService {
     }
   }
 
-  async editRejection(
-    rejection: RejectionDocument,
-  ): Promise<RejectionDocument> {
+  async update(rejection: RejectionDocument): Promise<RejectionDocument> {
     try {
       const editedRejection = await this.rejectionModel.findByIdAndUpdate(
         rejection._id,
@@ -39,9 +46,7 @@ export class RejectionService {
     }
   }
 
-  async deleteRejection(
-    rejection: RejectionDocument,
-  ): Promise<RejectionDocument> {
+  async delete(rejection: RejectionDocument): Promise<RejectionDocument> {
     try {
       await this.rejectionModel.deleteOne({ _id: rejection._id });
       return rejection;

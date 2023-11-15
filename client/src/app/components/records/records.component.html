@@ -1,0 +1,33 @@
+<nb-card>
+  <nb-card-body>
+    <table [nbTreeGrid]="source">
+      <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="columns"></tr>
+      <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: columns"></tr>
+
+      <ng-container [nbTreeGridColumnDef]="columns[0]">
+        <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>
+          {{ columns.slice(1) }}
+        </th>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row">
+          <nb-tree-grid-row-toggle
+            [expanded]="row.expanded"
+            *ngIf="row.data.kind === 'dir'"
+          >
+          </nb-tree-grid-row-toggle>
+
+          {{ row.data.part.name }}
+        </td>
+      </ng-container>
+
+      <ng-container
+        *ngFor="let column of columns.slice(1)"
+        [nbTreeGridColumnDef]="column"
+      >
+        <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>{{ column }}</th>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row">
+          {{ row.data[column] || "-" }}
+        </td>
+      </ng-container>
+    </table>
+  </nb-card-body>
+</nb-card>

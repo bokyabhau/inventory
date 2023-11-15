@@ -43,6 +43,8 @@ import { SandboxComponent } from './sandbox/sandbox.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { AddModalComponent } from './components/add-modal/add-modal.component';
+import { RecordListComponent } from './components/data-entry/record-list/record-list.component';
+import { RecordsComponent } from './components/records/records.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,6 +58,8 @@ import { AddModalComponent } from './components/add-modal/add-modal.component';
     SandboxComponent,
     DialogComponent,
     AddModalComponent,
+    RecordListComponent,
+    RecordsComponent,
   ],
   imports: [
     BrowserModule,
@@ -89,6 +93,7 @@ import { AddModalComponent } from './components/add-modal/add-modal.component';
     NbDialogModule.forChild({ closeOnEsc: true }),
     NbAutocompleteModule,
     NbSelectModule,
+    NbTreeGridModule,
   ],
   providers: [NbToastrService],
   bootstrap: [AppComponent],

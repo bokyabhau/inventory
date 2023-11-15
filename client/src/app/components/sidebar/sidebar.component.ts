@@ -29,5 +29,10 @@ export class SidebarComponent {
       icon: 'activity',
       link: '/reports',
     },
+    {
+      title: 'Records',
+      icon: 'activity',
+      link: '/records',
+    },
   ];
 }

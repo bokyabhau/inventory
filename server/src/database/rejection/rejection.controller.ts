@@ -7,24 +7,24 @@ import { RejectionDto } from './rejection.types';
 export class RejectionController {
   @Get()
   findAllProducts(): Promise<RejectionDocument[]> {
-    return this.rejectionService.getRejections();
+    return this.rejectionService.read();
   }
 
   @Post()
   addPart(@Body() rejectionDto: RejectionDto): Promise<RejectionDocument> {
-    return this.rejectionService.addRejection(rejectionDto);
+    return this.rejectionService.create(rejectionDto);
   }
 
   @Put()
   updatePart(
     @Body() rejectionDto: RejectionDocument,
   ): Promise<RejectionDocument> {
-    return this.rejectionService.editRejection(rejectionDto);
+    return this.rejectionService.update(rejectionDto);
   }
 
   @Delete()
   deletePart(@Body() body: RejectionDocument): Promise<Rejection> {
-    return this.rejectionService.deleteRejection(body);
+    return this.rejectionService.delete(body);
   }
 
   constructor(private rejectionService: RejectionService) {}

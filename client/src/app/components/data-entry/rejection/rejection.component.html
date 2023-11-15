@@ -1,0 +1,12 @@
+<div class="row" *ngFor="let rejection of rejections">
+  <div class="col">
+    <div class="title">Rejection Type:</div>
+    <div class="content">{{ rejection.rejection.name }}</div>
+  </div>
+  <div class="col">
+    <div class="title">Number of Rejections:</div>
+    <div class="content">
+      {{ rejection.numberOfRejections }}
+    </div>
+  </div>
+</div>

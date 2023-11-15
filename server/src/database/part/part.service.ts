@@ -8,12 +8,19 @@ import { Model, Types } from 'mongoose';
 export class PartService {
   constructor(@InjectModel(Part.name) private partModel: Model<Part>) {}
 
-  async getParts(): Promise<PartDocument[]> {
+  async read(): Promise<PartDocument[]> {
     return this.partModel.find().exec();
   }
 
-  async addPart(partDto: PartDto): Promise<PartDocument> {
+  async create(partDto: PartDto): Promise<PartDocument> {
     const newPart = new this.partModel(partDto);
+    const existingPart = await this.partModel.count({ name: partDto.name });
+    if (existingPart > 0) {
+      throw new HttpException(
+        `Part with name "${partDto.name}" already exists`,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
     try {
       const createdPart = await newPart.save();
       return createdPart;
@@ -22,7 +29,7 @@ export class PartService {
     }
   }
 
-  async editPart(part: PartDocument): Promise<PartDocument> {
+  async update(part: PartDocument): Promise<PartDocument> {
     try {
       const editedPart = await this.partModel.findByIdAndUpdate(
         part._id,
@@ -35,7 +42,7 @@ export class PartService {
     }
   }
 
-  async deletePart(part: PartDocument): Promise<PartDocument> {
+  async delete(part: PartDocument): Promise<PartDocument> {
     try {
       await this.partModel.deleteOne({ _id: part._id });
       return part;

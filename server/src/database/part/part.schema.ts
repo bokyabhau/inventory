@@ -3,7 +3,11 @@ import { HydratedDocument } from 'mongoose';
 
 @Schema({ timestamps: true, toJSON: { getters: true } })
 export class Part {
-  @Prop({ required: true, lowercase: true, unique: true })
+  @Prop({
+    required: true,
+    lowercase: true,
+    trim: true,
+  })
   name: string;
 
   @Prop({ required: false, lowercase: true })
